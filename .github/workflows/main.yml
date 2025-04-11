@@ -1,0 +1,23 @@
+name: Executar Análise de Apostas
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Executa todos os dias às 08:00 UTC (05:00 no Brasil)
+
+jobs:
+  run_analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o repositório
+        uses: actions/checkout@v2
+
+      - name: Instalar dependências
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Rodar o robô de apostas
+        run: python3 scripts/analise.py
+
+Adicionando workflow de análise diária
