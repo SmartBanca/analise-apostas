@@ -1,0 +1,39 @@
+import random
+from datetime import datetime
+
+def buscar_jogos_do_dia():
+    return [
+        {"hora": "10:00", "time1": "Barcelona", "time2": "Getafe"},
+        {"hora": "14:30", "time1": "Manchester City", "time2": "Fulham"},
+        {"hora": "18:00", "time1": "Grêmio", "time2": "Cruzeiro"},
+    ]
+
+def simular_odds():
+    return round(random.uniform(1.2, 2.0), 2)
+
+def analisar_jogo(jogo):
+    odd1 = simular_odds()
+    odd2 = simular_odds()
+
+    recomendacoes = []
+
+    if odd1 <= 1.5:
+        recomendacoes.append(f"🏆 {jogo['time1']} vence (odd: {odd1})")
+    if odd2 <= 1.5:
+        recomendacoes.append(f"🏆 {jogo['time2']} vence (odd: {odd2})")
+
+    return recomendacoes if recomendacoes else ["❌ Nenhuma entrada com odd <= 1.5"]
+
+def main():
+    print(f"📅 Análise de jogos - {datetime.now().strftime('%d/%m/%Y')}\n")
+
+    jogos = buscar_jogos_do_dia()
+    for jogo in jogos:
+        print(f"🕒 {jogo['hora']} - {jogo['time1']} x {jogo['time2']}")
+        recomendacoes = analisar_jogo(jogo)
+        for r in recomendacoes:
+            print(f"   → {r}")
+        print("-" * 40)
+
+if __name__ == "__main__":
+    main()
